@@ -150,33 +150,6 @@ def remove_empty_kwargs(**kwargs):
 
 # Sample python code for playlists.list
 
-def playlists_list_by_channel_id(service, **kwargs):
-  kwargs = remove_empty_kwargs(**kwargs) # See full sample for function
-  results = service.playlists().list(
-    **kwargs
-  ).execute()
-
-  print_results(results)
-
-playlists_list_by_channel_id(service,
-    part='snippet,contentDetails',
-    channelId='UCZ0DJ1UBmS1sEjDBr2OABAw',
-    maxResults=25)
-
-
-channels_list_by_id(service,
-    part='snippet,contentDetails,statistics',
-    id='UCZ0DJ1UBmS1sEjDBr2OABAw')
-
-videos_list_by_id(service, part='snippet, contentDetails, statistics',
-                  id='75-aN75C3Y0')
-
-search_list_by_keyword(service,
-                        part='snippet',
-                        maxResults=25,
-                        q='TBH.eSports',
-                        type=' ')
-
 def playlist_items_list_by_playlist_id(service, **kwargs):
   kwargs = remove_empty_kwargs(**kwargs) # See full sample for function
   results = service.playlistItems().list(
@@ -185,7 +158,48 @@ def playlist_items_list_by_playlist_id(service, **kwargs):
 
   print_results(results)
 
-playlist_items_list_by_playlist_id(service,
+
+
+def playlists_list_by_channel_id(service, **kwargs):
+  kwargs = remove_empty_kwargs(**kwargs) # See full sample for function
+  results = service.playlists().list(
+    **kwargs
+  ).execute()
+
+  print_results(results)
+
+  x=0
+  while x < len(results['items']):
+      playlist_items_list_by_playlist_id(service,
+                                         part='snippet, contentDetails',
+                                         maxResults=25,
+                                         playlistId=results['items'][x]['id'])
+      x=x+1
+
+playlists_list_by_channel_id(service,
     part='snippet,contentDetails',
-    maxResults=25,
-    playlistId='PL0qwFDY6TCnxnYiOVi5SK5XMinZRR9wIE')
+    channelId='UCZ0DJ1UBmS1sEjDBr2OABAw',
+    maxResults=50)
+
+
+# channels_list_by_id(service,
+#     part='snippet,contentDetails,statistics',
+#     id='UCZ0DJ1UBmS1sEjDBr2OABAw')
+
+# videos_list_by_id(service, part='snippet, contentDetails, statistics',
+#                   id='75-aN75C3Y0')
+
+
+# search_list_by_keyword(service,
+#                         part='snippet',
+#                         maxResults=25,
+#                         q='TBH.eSports',
+#                         type=' ')
+
+
+
+# playlist_items_list_by_playlist_id(service,
+#     part='snippet,contentDetails',
+#     maxResults=25,
+#     playlistId='PL0qwFDY6TCnxnYiOVi5SK5XMinZRR9wIE')
+
