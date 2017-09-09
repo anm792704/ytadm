@@ -158,6 +158,12 @@ def playlist_items_list_by_playlist_id(service, **kwargs):
 
   print_results(results)
 
+  playlist_item_idx=0
+  while playlist_item_idx < len(results['items']):
+      print (results['items'][playlist_item_idx]['snippet']['title'])
+      playlist_item_idx = playlist_item_idx + 1
+
+
 
 
 def playlists_list_by_channel_id(service, **kwargs):
@@ -168,13 +174,13 @@ def playlists_list_by_channel_id(service, **kwargs):
 
   print_results(results)
 
-  x=0
-  while x < len(results['items']):
+  playlist_idx=0
+  while playlist_idx < len(results['items']):
       playlist_items_list_by_playlist_id(service,
                                          part='snippet, contentDetails',
                                          maxResults=25,
-                                         playlistId=results['items'][x]['id'])
-      x=x+1
+                                         playlistId=results['items'][playlist_idx]['id'])
+      playlist_idx = playlist_idx + 1
 
 playlists_list_by_channel_id(service,
     part='snippet,contentDetails',
