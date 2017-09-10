@@ -187,6 +187,31 @@ playlists_list_by_channel_id(service,
     channelId='UCZ0DJ1UBmS1sEjDBr2OABAw',
     maxResults=50)
 
+def channels_update_branding_settings(properties, **kwargs):
+  resource = build_resource(properties) # See full sample for function
+  kwargs = remove_empty_kwargs(**kwargs) # See full sample for function
+  results = service.channels().update(
+    body=resource,
+    **kwargs
+  ).execute()
+
+  print_results(results)
+
+channels_update_branding_settings(
+    {'id': 'UCZ0DJ1UBmS1sEjDBr2OABAw',
+     'brandingSettings.channel.description': 'Counter-Strike CS 1.0 CS 1.1 CS 1.3 CS 1.4 CS 1.5 CS 1.6 Semper-Fidelis Gamma Lambda Squad black cell sleepless-guardians Boandlgrama TBH TBH.eSports',
+     'brandingSettings.channel.keywords': '',
+     'brandingSettings.channel.defaultLanguage': '',
+     'brandingSettings.channel.defaultTab': '',
+     'brandingSettings.channel.moderateComments': '',
+     'brandingSettings.channel.showRelatedChannels': '',
+     'brandingSettings.channel.showBrowseView': '',
+     'brandingSettings.channel.featuredChannelsTitle': '',
+     'brandingSettings.channel.featuredChannelsUrls[]': '',
+     'brandingSettings.channel.unsubscribedTrailer': ''},
+    part='brandingSettings',
+    onBehalfOfContentOwner='')
+
 
 # channels_list_by_id(service,
 #     part='snippet,contentDetails,statistics',
