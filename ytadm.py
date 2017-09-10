@@ -17,7 +17,8 @@ CLIENT_SECRETS_FILE = "client_secret.json"
 
 # This OAuth 2.0 access scope allows for full read/write access to the
 # authenticated user's account and requires requests to use an SSL connection.
-YOUTUBE_READ_WRITE_SSL_SCOPE = "https://www.googleapis.com/auth/youtube.readonly"
+#YOUTUBE_READ_WRITE_SSL_SCOPE = "https://www.googleapis.com/auth/youtube.readonly"
+YOUTUBE_READ_WRITE_SSL_SCOPE = "https://www.googleapis.com/auth/youtube.force-ssl"
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
 
@@ -30,7 +31,8 @@ def get_authenticated_service(args):
   flow = flow_from_clientsecrets(CLIENT_SECRETS_FILE, scope=YOUTUBE_READ_WRITE_SSL_SCOPE,
     message=MISSING_CLIENT_SECRETS_MESSAGE)
 
-  storage = Storage("%s-oauth2.json" % sys.argv[0])
+  #storage = Storage("%s-oauth2.json" % sys.argv[0])
+  storage = Storage("youtube-api-snippets-oauth2.json")
   credentials = storage.get()
 
   if credentials is None or credentials.invalid:
@@ -182,10 +184,10 @@ def playlists_list_by_channel_id(service, **kwargs):
                                          playlistId=results['items'][playlist_idx]['id'])
       playlist_idx = playlist_idx + 1
 
-playlists_list_by_channel_id(service,
-    part='snippet,contentDetails',
-    channelId='UCZ0DJ1UBmS1sEjDBr2OABAw',
-    maxResults=50)
+# playlists_list_by_channel_id(service,
+#     part='snippet,contentDetails',
+#     channelId='UCZ0DJ1UBmS1sEjDBr2OABAw',
+#     maxResults=50)
 
 def channels_update_branding_settings(properties, **kwargs):
   resource = build_resource(properties) # See full sample for function
@@ -199,13 +201,13 @@ def channels_update_branding_settings(properties, **kwargs):
 
 channels_update_branding_settings(
     {'id': 'UCZ0DJ1UBmS1sEjDBr2OABAw',
-     'brandingSettings.channel.description': 'Counter-Strike CS 1.0 CS 1.1 CS 1.3 CS 1.4 CS 1.5 CS 1.6 Semper-Fidelis Gamma Lambda Squad black cell sleepless-guardians Boandlgrama TBH TBH.eSports',
-     'brandingSettings.channel.keywords': '',
-     'brandingSettings.channel.defaultLanguage': '',
-     'brandingSettings.channel.defaultTab': '',
+     'brandingSettings.channel.description': 'Counter-Strike CS 1.0 CS 1.1 CS 1.3 CS 1.4 CS 1.5 CS 1.6 Semper-Fidelis black cell sleepless-guardians Boandlgrama TBH TBH.eSports',
+     'brandingSettings.channel.keywords': 'Counter-Strike CS 1.6 Semper-Fidelis black cell sleepless-guardians Boandlgrama TBH.eSports',
+     'brandingSettings.channel.defaultLanguage': 'en',
+     'brandingSettings.channel.defaultTab': 'Featured',
      'brandingSettings.channel.moderateComments': '',
-     'brandingSettings.channel.showRelatedChannels': '',
-     'brandingSettings.channel.showBrowseView': '',
+     'brandingSettings.channel.showRelatedChannels': 'true',
+     'brandingSettings.channel.showBrowseView': 'true',
      'brandingSettings.channel.featuredChannelsTitle': '',
      'brandingSettings.channel.featuredChannelsUrls[]': '',
      'brandingSettings.channel.unsubscribedTrailer': ''},
